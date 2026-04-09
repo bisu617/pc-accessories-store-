@@ -1,9 +1,13 @@
 import axios from 'axios';
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
+const isBrowser = typeof window !== 'undefined';
+const isLocalhost = isBrowser && (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1');
+
+const API_URL = process.env.NEXT_PUBLIC_API_URL || 
+                (isBrowser && !isLocalhost ? '/_/backend' : 'http://localhost:5000');
 
 const api = axios.create({
-  baseURL: `${API_URL}/api`,
+  baseURL: API_URL.startsWith('http') ? `${API_URL}/api` : `${API_URL}/api`,
   headers: {
     'Content-Type': 'application/json',
   },
