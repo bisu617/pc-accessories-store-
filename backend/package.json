@@ -3,11 +3,11 @@
   "version": "1.0.0",
   "type": "module",
   "description": "Byte Bazar Tech - Backend API",
-  "main": "dist/server.js",
+  "main": "dist/src/server.js",
   "scripts": {
     "dev": "tsx watch src/server.ts",
     "build": "tsc",
-    "start": "node dist/server.js",
+    "start": "node dist/src/server.js",
     "seed": "node --import tsx seed/seedProducts.ts"
   },
   "dependencies": {
