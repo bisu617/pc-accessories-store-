@@ -11,7 +11,11 @@
 .inputWrapper { position: relative; display: flex; align-items: center; }
 .inputWrapper svg { position: absolute; left: 1rem; color: var(--text-light); z-index: 2; font-size: 1rem; }
 .inputWrapper input { width: 100%; padding: 0.9rem 1rem 0.9rem 2.75rem; border: 2px solid var(--border-light); border-radius: var(--border-radius); font-size: 1rem; transition: var(--transition); background: white; font-family: inherit; }
-.inputWrapper input:focus { outline: none; border-color: var(--primary-start); box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1); }
+.inputWrapper input:focus {
+  outline: none;
+  border-color: var(--primary-start);
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.15);
+}
 .togglePassword { position: absolute; right: 0.75rem; background: none; border: none; color: var(--text-light); cursor: pointer; z-index: 2; padding: 0.5rem; transition: var(--transition); }
 .togglePassword:hover { color: var(--primary-start); }
 .formOptions { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.75rem; }
