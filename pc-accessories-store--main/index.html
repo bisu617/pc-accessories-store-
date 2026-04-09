@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Byte Bazar Tech - Complete Gaming Store</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-left">
+            <a href="#home"><i class="fas fa-home"></i> Home</a>
+            <a href="#categories">Categories</a>
+            <a href="#products">Products</a>
+            <a href="#about">About</a>
+        </div>
+    
+        <div class="nav-center">
+            <a href="#home" class="logo">Byte Bazar Tech</a>
+        </div>
+    
+        <div class="nav-right">
+            <a href="#contact">Contact</a>
+            <div class="user-section">
+                <a href="#" class="login-link" onclick="showModal('loginModal')">
+                    <i class="fas fa-user"></i> Login
+                </a>
+                <div class="user-dropdown" id="userDropdown" style="display: none;">
+                    <div class="user-info">
+                        <i class="fas fa-user-circle"></i>
+                        <span id="userName"></span>
+                    </div>
+                    <div class="dropdown-content">
+                        <a href="#" onclick="showProfile()"><i class="fas fa-user"></i> Profile</a>
+                        <a href="#" onclick="showOrders()"><i class="fas fa-box"></i> Orders</a>
+                        <a href="#" onclick="showWishlist()"><i class="fas fa-heart"></i> Wishlist</a>
+                        <a href="#" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                    </div>
+                </div>
+            </div>
+            <button class="cart-toggle" onclick="openCart()">
+                <i class="fas fa-shopping-cart"></i>
+                <span class="cart-count" id="cartCount">0</span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section" id="home">
+        <div class="hero-content">
+            <h1>Elevate Your Gaming Experience</h1>
+            <p>Discover premium gaming peripherals designed for champions. From mechanical keyboards to high-performance mice.</p>
+            <div class="cta-group">
+                <a href="#products" class="cta-button">
+                    <i class="fas fa-rocket"></i> Products
+                </a>
+                <a href="#categories" class="cta-button cta-secondary">
+                    <i class="fas fa-th-large"></i> Browse Categories
+                </a>
+            </div>
+        </div>
+        <div class="hero-image">
+            <img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?w=600&h=400&fit=crop&crop=center" alt="Gaming Setup" />
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats-section">
+        <div class="stat-item">
+            <span class="stat-number">500+</span>
+            <span class="stat-label">Premium Products</span>
+        </div>
+        <div class="stat-item">
+            <span class="stat-number">10K+</span>
+            <span class="stat-label">Happy Gamers</span>
+        </div>
+        <div class="stat-item">
+            <span class="stat-number">24/7</span>
+            <span class="stat-label">Customer Support</span>
+        </div>
+        <div class="stat-item">
+            <span class="stat-number">99%</span>
+            <span class="stat-label">Satisfaction Rate</span>
+        </div>
+    </section>
+
+    <!-- Categories Section -->
+    <section class="categories-section" id="categories">
+        <h2 class="section-title">Shop by Category</h2>
+        <p class="section-subtitle">Explore our curated collection of premium gaming peripherals, each category featuring the latest technology and top brands.</p>
+        
+        <div class="categories-grid">
+            <div class="category-card" onclick="filterProducts('keyboard')">
+                <div class="category-icon">
+                    <i class="fas fa-keyboard"></i>
+                </div>
+                <h3>Mechanical Keyboards</h3>
+                <p>Premium switches for every typing style and gaming preference. From tactile to linear switches.</p>
+                <button class="category-btn">Explore Keyboards</button>
+            </div>
+            
+            <div class="category-card" onclick="filterProducts('mouse')">
+                <div class="category-icon">
+                    <i class="fas fa-mouse"></i>
+                </div>
+                <h3>Gaming Mice</h3>
+                <p>Precision-engineered gaming mice with high DPI sensors and customizable buttons for competitive gaming.</p>
+                <button class="category-btn">Explore Mice</button>
+            </div>
+            
+            <div class="category-card" onclick="filterProducts('headphone')">
+                <div class="category-icon">
+                    <i class="fas fa-headphones"></i>
+                </div>
+                <h3>Gaming Headsets</h3>
+                <p>Immersive audio experience with crystal-clear communication for competitive advantage.</p>
+                <button class="category-btn">Explore Headsets</button>
+            </div>
+            
+            <div class="category-card" onclick="filterProducts('mousepad')">
+                <div class="category-icon">
+                    <i class="fas fa-square"></i>
+                </div>
+                <h3>Mouse Pads</h3>
+                <p>Optimized surfaces for peak performance with various sizes and textures for different play styles.</p>
+                <button class="category-btn">Explore Mouse Pads</button>
+            </div>
+            
+            <div class="category-card" onclick="filterProducts('monitor')">
+                <div class="category-icon">
+                    <i class="fas fa-desktop"></i>
+                </div>
+                <h3>Gaming Monitors</h3>
+                <p>Crystal-clear displays with high refresh rates and low input lag for competitive gaming.</p>
+                <button class="category-btn">Explore Monitors</button>
+            </div>
+            
+            <div class="category-card" onclick="filterProducts('accessories')">
+                <div class="category-icon">
+                    <i class="fas fa-plug"></i>
+                </div>
+                <h3>Accessories</h3>
+                <p>Complete your setup with cables, stands, and other essential gaming accessories.</p>
+                <button class="category-btn">Explore Accessories</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Products Section -->
+    <section class="products-section" id="products">
+        <div class="products-header">
+            <div>
+                <h2 class="section-title">Featured Products</h2>
+                <p class="section-subtitle">Handpicked premium gaming gear from top brands</p>
+            </div>
+            <div class="products-controls">
+                <button class="filter-btn" onclick="showFilters()">
+                    <i class="fas fa-filter"></i> Filters
+                </button>
+                <select class="sort-select" onchange="sortProducts(this.value)">
+                    <option value="featured">Featured</option>
+                    <option value="price-low">Price: Low to High</option>
+                    <option value="price-high">Price: High to Low</option>
+                    <option value="name">Name A-Z</option>
+                    <option value="rating">Highest Rated</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="products-grid" id="productsGrid">
+            <!-- Product cards will be dynamically loaded here -->
+        </div>
+    </section>
+
+    <!-- Newsletter Section -->
+    <section class="newsletter-section">
+        <h2 class="section-title">Stay Updated</h2>
+        <p>Get exclusive deals, new product launches, and gaming tips delivered to your inbox</p>
+        <form class="newsletter-form" onsubmit="subscribeNewsletter(event)">
+            <input type="email" placeholder="Enter your email address" required>
+            <button type="submit"><i class="fas fa-paper-plane"></i> Subscribe</button>
+        </form>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer" id="about">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>About Byte Bazar Tech</h3>
+                <p>We're passionate about providing top-quality gaming peripherals that enhance your gaming experience. From mechanical keyboards to high-performance gaming mice, we ensure the best quality and innovation for gamers and professionals alike.</p>
+                <div class="social-links">
+                    <a href="#" target="_blank"><i class="fab fa-facebook"></i></a>
+                    <a href="#" target="_blank"><i class="fab fa-twitter"></i></a>
+                    <a href="#" target="_blank"><i class="fab fa-instagram"></i></a>
+                    <a href="#" target="_blank"><i class="fab fa-youtube"></i></a>
+                    <a href="#" target="_blank"><i class="fab fa-discord"></i></a>
+                </div>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#categories">Categories</a></li>
+                    <li><a href="#products">Products</a></li>
+                    <li><a href="#about">About Us</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Customer Service</h3>
+                <ul>
+                    <li><a href="#">Shipping Info</a></li>
+                    <li><a href="#">Returns & Exchanges</a></li>
+                    <li><a href="#">Warranty</a></li>
+                    <li><a href="#">Size Guide</a></li>
+                    <li><a href="#">FAQ</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section" id="contact">
+                <h3>Contact Info</h3>
+                <div class="contact-info">
+                    <p><i class="fas fa-envelope"></i> support@bytebazartech.com</p>
+                    <p><i class="fas fa-phone"></i> +977 123-456-7890</p>
+                    <p><i class="fas fa-map-marker-alt"></i> IIMS College, Kathmandu, Nepal</p>
+                    <p><i class="fas fa-clock"></i> Mon-Fri: 9AM-6PM</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; 2024 Byte Bazar Tech. All rights reserved. | Privacy Policy | Terms of Service</p>
+        </div>
+    </footer>
+
+    <!-- Shopping Cart Sidebar -->
+    <div class="cart-sidebar" id="cartSidebar">
+        <div class="cart-header">
+            <h3><i class="fas fa-shopping-cart"></i> Shopping Cart</h3>
+            <button class="close-cart" onclick="closeCart()">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="cart-items" id="cartItems">
+            <div class="empty-cart">
+                <i class="fas fa-shopping-cart"></i>
+                <p>Your cart is empty</p>
+                <p>Start adding some awesome products!</p>
+            </div>
+        </div>
+        <div class="cart-footer">
+            <div class="cart-total">
+                Total: $<span id="cartTotal">0.00</span>
+            </div>
+            <button class="checkout-btn" onclick="checkout()">
+                <i class="fas fa-credit-card"></i> Proceed to Checkout
+            </button>
+            <button class="clear-cart" onclick="clearCart()">
+                <i class="fas fa-trash"></i> Clear Cart
+            </button>
+        </div>
+    </div>
+
+    <!-- Authentication Modals -->
+    <!-- Login Modal -->
+    <div class="auth-modal" id="loginModal">
+        <div class="auth-modal-header">
+            <button class="close-modal" onclick="closeModal()">
+                <i class="fas fa-times"></i>
+            </button>
+            <h2>Welcome Back!</h2>
+            <p>Sign in to access your account and continue shopping</p>
+        </div>
+        <div class="auth-modal-body">
+            <form class="auth-form" id="loginForm" onsubmit="handleLogin(event)">
+                <div class="form-group">
+                    <label for="loginEmail">Email Address</label>
+                    <div class="input-wrapper">
+                        <i class="fas fa-envelope"></i>
+                        <input type="email" id="loginEmail" name="email" placeholder="Enter your email" required>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="loginPassword">Password</label>
+                    <div class="input-wrapper">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" id="loginPassword" name="password" placeholder="Enter your password" required>
+                        <button type="button" class="toggle-password" onclick="togglePassword('loginPassword')">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="form-options">
+                    <label class="checkbox-wrapper">
+                        <input type="checkbox" id="rememberMe">
+                        <span class="checkmark"></span>
+                        Remember me
+                    </label>
+                    <a href="#" class="forgot-password" onclick="showForgotPassword()">Forgot Password?</a>
+                </div>
+                
+                <button type="submit" class="auth-submit-btn">
+                    <i class="fas fa-sign-in-alt"></i>
+                    Sign In
+                </button>
+                
+                <div class="auth-divider">
+                    <span>or continue with</span>
+                </div>
+                
+                <div class="social-login">
+                    <button type="button" class="social-btn google" onclick="socialLogin('google')">
+                        <i class="fab fa-google"></i>
+                        Google
+                    </button>
+                    <button type="button" class="social-btn facebook" onclick="socialLogin('facebook')">
+                        <i class="fab fa-facebook-f"></i>
+                        Facebook
+                    </button>
+                </div>
+                
+                <div class="auth-footer">
+                    Don't have an account? 
+                    <a href="#" onclick="switchToRegister()">Sign up here</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Registration Modal -->
+    <div class="auth-modal" id="registerModal">
+        <div class="auth-modal-header">
+            <button class="close-modal" onclick="closeModal()">
+                <i class="fas fa-times"></i>
+            </button>
+            <h2>Create Account</h2>
+            <p>Join our community and start your gaming journey</p>
+        </div>
+        <div class="auth-modal-body">
+            <form class="auth-form" id="registerForm" onsubmit="handleRegister(event)">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="firstName">First Name</label>
+                        <div class="input-wrapper">
+                            <i class="fas fa-user"></i>
+                            <input type="text" id="firstName" name="firstName" placeholder="First name" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="lastName">Last Name</label>
+                        <div class="input-wrapper">
+                            <i class="fas fa-user"></i>
+                            <input type="text" id="lastName" name="lastName" placeholder="Last name" required>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="registerEmail">Email Address</label>
+                    <div class="input-wrapper">
+                        <i class="fas fa-envelope"></i>
+                        <input type="email" id="registerEmail" name="email" placeholder="Enter your email" required>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="registerPassword">Password</label>
+                    <div class="input-wrapper">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" id="registerPassword" name="password" placeholder="Create password" required>
+                        <button type="button" class="toggle-password" onclick="togglePassword('registerPassword')">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                    </div>
+                    <div class="password-strength" id="passwordStrength"></div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="confirmPassword">Confirm Password</label>
+                    <div class="input-wrapper">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirm password" required>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label class="checkbox-wrapper">
+                        <input type="checkbox" id="agreeTerms" required>
+                        <span class="checkmark"></span>
+                        I agree to the <a href="#" target="_blank">Terms of Service</a> and <a href="#" target="_blank">Privacy Policy</a>
+                    </label>
+                </div>
+                
+                <div class="form-group">
+                    <label class="checkbox-wrapper">
+                        <input type="checkbox" id="newsletter">
+                        <span class="checkmark"></span>
+                        Subscribe to newsletter for exclusive deals and updates
+                    </label>
+                </div>
+                
+                <button type="submit" class="auth-submit-btn">
+                    <i class="fas fa-user-plus"></i>
+                    Create Account
+                </button>
+                
+                <div class="auth-divider">
+                    <span>or continue with</span>
+                </div>
+                
+                <div class="social-login">
+                    <button type="button" class="social-btn google" onclick="socialLogin('google')">
+                        <i class="fab fa-google"></i>
+                        Google
+                    </button>
+                    <button type="button" class="social-btn facebook" onclick="socialLogin('facebook')">
+                        <i class="fab fa-facebook-f"></i>
+                        Facebook
+                    </button>
+                </div>
+                
+                <div class="auth-footer">
+                    Already have an account? 
+                    <a href="#" onclick="switchToLogin()">Sign in here</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Forgot Password Modal -->
+    <div class="auth-modal" id="forgotPasswordModal">
+        <div class="auth-modal-header">
+            <button class="close-modal" onclick="closeModal()">
+                <i class="fas fa-times"></i>
+            </button>
+            <h2>Reset Password</h2>
+            <p>Enter your email to receive reset instructions</p>
+        </div>
+        <div class="auth-modal-body">
+            <form class="auth-form" id="forgotPasswordForm" onsubmit="handleForgotPassword(event)">
+                <div class="form-group">
+                    <label for="resetEmail">Email Address</label>
+                    <div class="input-wrapper">
+                        <i class="fas fa-envelope"></i>
+                        <input type="email" id="resetEmail" name="email" placeholder="Enter your email" required>
+                    </div>
+                </div>
+                
+                <button type="submit" class="auth-submit-btn">
+                    <i class="fas fa-paper-plane"></i>
+                    Send Reset Link
+                </button>
+                
+                <div class="auth-footer">
+                    Remember your password? 
+                    <a href="#" onclick="switchToLogin()">Sign in here</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Overlay -->
+    <div class="overlay" id="overlay" onclick="closeModal()"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>

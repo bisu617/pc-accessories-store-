@@ -1,0 +1,24 @@
+# Folders
+node_modules/
+.next/
+dist/
+build/
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Misc
+.gemini/
+build_v*.log
+test-dns.js
