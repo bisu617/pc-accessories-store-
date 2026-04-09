@@ -1,0 +1,19 @@
+.container { padding: 2rem; max-width: 900px; margin: 0 auto; }
+.empty { display: flex; flex-direction: column; align-items: center; padding: 6rem 2rem; color: var(--text-light); gap: 1rem; text-align: center; }
+.empty h2 { color: var(--text-dark); }
+.ordersList { display: flex; flex-direction: column; gap: 1.5rem; margin-top: 2rem; }
+.orderCard { background: white; border-radius: var(--border-radius-lg); box-shadow: var(--shadow-light); overflow: hidden; transition: var(--transition); }
+.orderCard:hover { box-shadow: var(--shadow-medium); }
+.orderHeader { display: flex; justify-content: space-between; align-items: center; padding: 1.25rem 1.5rem; border-bottom: 1px solid var(--border-light); flex-wrap: wrap; gap: 0.75rem; }
+.orderId { font-weight: 700; color: var(--text-dark); font-size: 1rem; display: block; margin-bottom: 0.25rem; }
+.orderDate { display: flex; align-items: center; gap: 0.4rem; color: var(--text-light); font-size: 0.85rem; }
+.status { padding: 0.35rem 1rem; border-radius: var(--border-radius-full); color: white; font-size: 0.8rem; font-weight: 700; text-transform: capitalize; }
+.orderItems { padding: 1rem 1.5rem; }
+.orderItem { display: flex; align-items: center; gap: 1rem; padding: 0.6rem 0; border-bottom: 1px solid rgba(224,224,224,0.3); }
+.orderItem:last-child { border-bottom: none; }
+.orderItem img { width: 40px; height: 40px; object-fit: contain; border-radius: 6px; background: var(--bg-light); padding: 3px; }
+.orderItemName { flex: 1; font-weight: 600; font-size: 0.9rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.orderItemQty { color: var(--text-light); font-size: 0.85rem; }
+.orderItemPrice { font-weight: 700; font-size: 0.95rem; }
+.orderFooter { padding: 1rem 1.5rem; border-top: 1px solid var(--border-light); background: var(--bg-light); text-align: right; font-size: 1.05rem; }
+.orderFooter strong { color: var(--text-dark); }

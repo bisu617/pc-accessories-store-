@@ -1,0 +1,45 @@
+.container { padding: 2rem; max-width: var(--max-width); margin: 0 auto; }
+.backBtn { display: inline-flex; align-items: center; gap: 0.5rem; background: none; border: none; color: var(--text-dark); font-weight: 600; font-size: 1rem; cursor: pointer; margin-bottom: 2rem; transition: var(--transition); padding: 0.5rem 0; }
+.backBtn:hover { color: var(--primary-start); }
+.productLayout { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; margin-bottom: 4rem; }
+.imageSection { position: sticky; top: 100px; }
+.mainImage { background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); border-radius: var(--border-radius-xl); padding: 3rem; display: flex; align-items: center; justify-content: center; position: relative; min-height: 400px; }
+.mainImage img { max-width: 100%; max-height: 400px; object-fit: contain; }
+.badge { position: absolute; top: 1.5rem; right: 1.5rem; padding: 0.5rem 1.25rem; border-radius: var(--border-radius-full); font-size: 0.85rem; font-weight: 700; text-transform: uppercase; }
+.badgeHot { background: var(--error-color); color: white; }
+.badgeNew { background: var(--success-color); color: white; }
+.badgeSale { background: var(--warning-color); color: white; }
+.infoSection { display: flex; flex-direction: column; gap: 1.25rem; }
+.category { font-size: 0.85rem; color: var(--primary-start); font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; }
+.name { font-size: 2rem; font-weight: 800; line-height: 1.2; color: var(--text-dark); }
+.rating { color: #ffc107; font-size: 1.1rem; display: flex; align-items: center; gap: 0.75rem; }
+.rating span { color: var(--text-light); font-size: 0.95rem; font-weight: 600; }
+.price { font-size: 2.5rem; font-weight: 800; background: var(--primary-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.stock { display: flex; align-items: center; }
+.inStock { display: flex; align-items: center; gap: 0.5rem; color: var(--success-color); font-weight: 700; font-size: 1rem; }
+.outOfStock { display: flex; align-items: center; gap: 0.5rem; color: var(--error-color); font-weight: 700; font-size: 1rem; }
+.features h3, .description h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 0.75rem; color: var(--text-dark); }
+.featureTags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.featureTag { background: rgba(102, 126, 234, 0.08); color: var(--primary-start); padding: 0.4rem 1rem; border-radius: var(--border-radius-full); font-size: 0.9rem; font-weight: 600; }
+.description p { color: var(--text-light); line-height: 1.8; font-size: 1rem; }
+.actions { display: flex; gap: 1rem; margin-top: 1rem; }
+.addToCartBtn { flex: 1; display: flex; align-items: center; justify-content: center; gap: 0.75rem; background: var(--primary-gradient); color: white; border: none; padding: 1.15rem 2rem; border-radius: var(--border-radius); font-weight: 700; font-size: 1.1rem; cursor: pointer; transition: var(--transition); }
+.addToCartBtn:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4); }
+.addToCartBtn:disabled { background: #ccc; cursor: not-allowed; }
+.addToCartBtn:disabled:hover { transform: none; box-shadow: none; }
+.addToCartBtn.added { background: var(--success-color); }
+.wishlistBtn { width: 56px; height: 56px; display: flex; align-items: center; justify-content: center; background: var(--bg-light); border: 2px solid var(--border-light); border-radius: var(--border-radius); cursor: pointer; transition: var(--transition); font-size: 1.2rem; color: var(--text-light); }
+.wishlistBtn:hover { border-color: var(--error-color); color: var(--error-color); }
+.related { padding-top: 2rem; border-top: 1px solid var(--border-light); }
+.related h2 { margin-bottom: 2rem; }
+.relatedGrid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 2rem; }
+
+@media (max-width: 768px) {
+  .container { padding: 1rem; }
+  .productLayout { grid-template-columns: 1fr; gap: 2rem; }
+  .imageSection { position: static; }
+  .mainImage { min-height: 250px; padding: 2rem; }
+  .name { font-size: 1.5rem; }
+  .price { font-size: 2rem; }
+  .relatedGrid { grid-template-columns: 1fr; }
+}
