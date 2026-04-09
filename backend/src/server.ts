@@ -43,8 +43,10 @@ app.use('/api/cart', cartRoutes);
 app.use('/api/orders', orderRoutes);
 app.use('/api/wishlist', wishlistRoutes);
 
+import { Request, Response } from 'express';
+
 // Health check
-app.get('/api/health', (_req, res) => {
+app.get('/api/health', (_req: Request, res: Response) => {
   res.json({ 
     status: 'OK', 
     message: 'Byte Bazar Tech API is running',
@@ -53,7 +55,7 @@ app.get('/api/health', (_req, res) => {
 });
 
 // 404 handler
-app.use((_req, res) => {
+app.use((_req: Request, res: Response) => {
   res.status(404).json({ message: 'Route not found' });
 });
 

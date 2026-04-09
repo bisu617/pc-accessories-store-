@@ -29,13 +29,13 @@ export const register = async (req: Request, res: Response): Promise<void> => {
       password,
     });
 
-    const token = generateToken(user._id as string);
+    const token = generateToken(user.id);
 
     res.status(201).json({
       message: 'Account created successfully',
       token,
       user: {
-        _id: user._id,
+        _id: user.id,
         firstName: user.firstName,
         lastName: user.lastName,
         email: user.email,
@@ -73,7 +73,7 @@ export const login = async (req: Request, res: Response): Promise<void> => {
       return;
     }
 
-    const token = generateToken(user._id as string);
+    const token = generateToken(user.id);
 
     res.json({
       message: 'Login successful',
