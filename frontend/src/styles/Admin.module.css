@@ -263,17 +263,17 @@
   overflow-x: auto;
 }
 
-table {
+.tableWrapper table {
   width: 100%;
   border-collapse: collapse;
 }
 
-thead tr {
+.tableWrapper thead tr {
   background: #f9fafb;
   border-bottom: 1px solid #e5e7eb;
 }
 
-th {
+.tableWrapper th {
   padding: 0.75rem 1rem;
   text-align: left;
   font-size: 0.75rem;
@@ -284,7 +284,7 @@ th {
   white-space: nowrap;
 }
 
-td {
+.tableWrapper td {
   padding: 0.875rem 1rem;
   font-size: 0.875rem;
   color: #374151;
@@ -292,8 +292,8 @@ td {
   vertical-align: middle;
 }
 
-tr:last-child td { border-bottom: none; }
-tr:hover td { background: #fafafa; }
+.tableWrapper tr:last-child td { border-bottom: none; }
+.tableWrapper tr:hover td { background: #fafafa; }
 
 .productThumb {
   width: 40px;

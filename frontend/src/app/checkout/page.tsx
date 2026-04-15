@@ -21,8 +21,12 @@ export default function CheckoutPage() {
     street: '', city: '', state: '', zip: '', country: '',
   });
 
-  if (!user) { router.push('/login'); return null; }
-  if (items.length === 0 && !orderPlaced) { router.push('/cart'); return null; }
+  React.useEffect(() => {
+    if (!user) { router.push('/login'); }
+    else if (items.length === 0 && !orderPlaced) { router.push('/cart'); }
+  }, [user, items.length, orderPlaced, router]);
+
+  if (!user || (items.length === 0 && !orderPlaced)) { return null; }
 
   if (orderPlaced) {
     return (

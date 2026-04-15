@@ -11,7 +11,11 @@ export default function ProfilePage() {
   const { user, logout, loading } = useAuth();
   const router = useRouter();
 
-  if (!loading && !user) { router.push('/login'); return null; }
+  React.useEffect(() => {
+    if (!loading && !user) { router.push('/login'); }
+  }, [loading, user, router]);
+
+  if (!loading && !user) return null;
   if (!user) return null;
 
   const handleLogout = () => {
