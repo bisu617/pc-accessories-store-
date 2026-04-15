@@ -91,10 +91,11 @@ export const wishlistAPI = {
   toggle: (productId: string) => api.post(`/wishlist/${productId}`),
 };
 
-// Image URL helper
+// Image URL helper - images are served from Next.js public/images/
 export const getImageUrl = (imagePath: string): string => {
   if (imagePath.startsWith('http')) return imagePath;
-  return `${API_URL}${imagePath}`;
+  // imagePath is like '/images/foo.png' — served directly by Next.js
+  return imagePath;
 };
 
 export default api;
