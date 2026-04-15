@@ -33,11 +33,13 @@ const allowedOrigins = [
 
 app.use(cors({
   origin: (origin, callback) => {
-    if (!origin || allowedOrigins.includes(origin)) {
-      callback(null, true);
-    } else {
-      callback(new Error('Not allowed by CORS'));
+    if (!origin) return callback(null, true);
+    if (allowedOrigins.includes(origin)) return callback(null, true);
+    // Allow all Vercel preview deployments for this project
+    if (/^https:\/\/pc-accessories-store(-[a-z0-9]+)*\.vercel\.app$/.test(origin)) {
+      return callback(null, true);
     }
+    callback(new Error('Not allowed by CORS'));
   },
   credentials: true,
 }));
