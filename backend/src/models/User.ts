@@ -6,6 +6,7 @@ export interface IUserDocument extends Document {
   lastName: string;
   email: string;
   password: string;
+  role: 'user' | 'admin';
   cart: { product: mongoose.Types.ObjectId; quantity: number }[];
   wishlist: mongoose.Types.ObjectId[];
   createdAt: Date;
@@ -55,6 +56,11 @@ const userSchema = new Schema<IUserDocument>(
         },
       },
     ],
+    role: {
+      type: String,
+      enum: ['user', 'admin'],
+      default: 'user',
+    },
     wishlist: [
       {
         type: Schema.Types.ObjectId,

@@ -14,6 +14,7 @@ import productRoutes from './routes/products.js';
 import cartRoutes from './routes/cart.js';
 import orderRoutes from './routes/orders.js';
 import wishlistRoutes from './routes/wishlist.js';
+import adminRoutes, { setupRouter } from './routes/admin.js';
 
 dotenv.config();
 
@@ -47,7 +48,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Serve static images
-app.use('/images', express.static(path.join(__dirname, '..', 'public', 'images')));
+app.use('/images', express.static(path.join(process.cwd(), 'public', 'images')));
 
 // API Routes
 app.use('/api/auth', authRoutes);
@@ -55,6 +56,8 @@ app.use('/api/products', productRoutes);
 app.use('/api/cart', cartRoutes);
 app.use('/api/orders', orderRoutes);
 app.use('/api/wishlist', wishlistRoutes);
+app.use('/api/admin', adminRoutes);
+app.use('/api', setupRouter);
 
 import { Request, Response } from 'express';
 

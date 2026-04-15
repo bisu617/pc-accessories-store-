@@ -16,6 +16,7 @@ export interface IUser {
   firstName: string;
   lastName: string;
   email: string;
+  role: 'user' | 'admin';
   cart: ICartItem[];
   wishlist: string[];
   createdAt: string;

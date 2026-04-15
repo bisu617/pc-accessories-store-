@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { FiHome, FiGrid, FiBox, FiInfo, FiMail, FiShoppingCart, FiUser, FiHeart, FiLogOut, FiMenu, FiX, FiPackage } from 'react-icons/fi';
+import { FiHome, FiGrid, FiBox, FiShoppingCart, FiUser, FiHeart, FiLogOut, FiMenu, FiX, FiPackage } from 'react-icons/fi';
 import { useAuth } from '@/context/AuthContext';
 import { useCart } from '@/context/CartContext';
 import styles from '@/styles/Navbar.module.css';
@@ -86,6 +86,11 @@ const Navbar: React.FC = () => {
                   <Link href="/wishlist" className={styles.dropdownItem}>
                     <FiHeart /> Wishlist
                   </Link>
+                  {user.role === 'admin' && (
+                    <Link href="/admin" className={styles.dropdownItem}>
+                      <FiPackage /> Admin Panel
+                    </Link>
+                  )}
                   <button onClick={handleLogout} className={`${styles.dropdownItem} ${styles.logoutBtn}`}>
                     <FiLogOut /> Logout
                   </button>

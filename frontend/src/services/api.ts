@@ -98,4 +98,26 @@ export const getImageUrl = (imagePath: string): string => {
   return imagePath;
 };
 
+// Admin API
+export const adminAPI = {
+  getStats: () => api.get('/admin/stats'),
+
+  // Products
+  getProducts: () => api.get('/admin/products'),
+  createProduct: (data: object) => api.post('/admin/products', data),
+  updateProduct: (id: string, data: object) => api.put(`/admin/products/${id}`, data),
+  deleteProduct: (id: string) => api.delete(`/admin/products/${id}`),
+
+  // Orders
+  getOrders: (params?: { status?: string; page?: number }) =>
+    api.get('/admin/orders', { params }),
+  updateOrderStatus: (id: string, status: string) =>
+    api.put(`/admin/orders/${id}/status`, { status }),
+
+  // Users
+  getUsers: (params?: { page?: number }) => api.get('/admin/users', { params }),
+  updateUserRole: (id: string, role: 'user' | 'admin') =>
+    api.put(`/admin/users/${id}/role`, { role }),
+};
+
 export default api;
