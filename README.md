@@ -4,6 +4,11 @@ Byte Bazar Tech is a premium, full-stack e-commerce platform dedicated to high-p
 
 ![Byte Bazar Banner](https://images.unsplash.com/photo-1587202372775-e229f172b9d7?auto=format&fit=crop&q=80&w=1200)
 
+## 🔑 Demo Admin Access
+For recruiters and reviewers, you can access the full Admin Panel using the following credentials:
+- **Email**: `admin@demo.com`
+- **Password**: `password123`
+
 ## 🌟 Key Features
 
 - **Dynamic Product Catalog**: Browse a wide range of keyboards, mice, headphones, and more.
