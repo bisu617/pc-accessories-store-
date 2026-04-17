@@ -92,7 +92,7 @@ export default function CartPage() {
           <button onClick={clearCart} className={styles.clearBtn}>
             <FiTrash2 /> Clear Cart
           </button>
-        </div>
+        </motion.div>
 
         <div className={styles.summary}>
           <h3>Order Summary</h3>
