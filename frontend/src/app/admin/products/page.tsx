@@ -2,11 +2,13 @@
 
 import React, { useEffect, useState } from 'react';
 import { FiPlus, FiEdit2, FiTrash2, FiX } from 'react-icons/fi';
+import Image from 'next/image';
 import { adminAPI, getImageUrl } from '@/services/api';
+import { motion, AnimatePresence } from 'framer-motion';
 import { IProduct } from '@/types';
 import styles from '@/styles/Admin.module.css';
 
-const CATEGORIES = ['keyboard', 'mouse', 'headphone', 'mousepad', 'monitor', 'accessories'];
+const CATEGORIES = ['keyboard', 'mouse', 'headphone', 'mousepad', 'monitor'];
 const BADGES = ['', 'hot', 'new', 'sale'];
 
 const emptyForm = {
@@ -129,39 +131,57 @@ export default function AdminProductsPage() {
                 </tr>
               </thead>
               <tbody>
-                {filtered.length === 0 ? (
-                  <tr><td colSpan={8} style={{ textAlign: 'center', color: '#9ca3af' }}>No products found.</td></tr>
-                ) : filtered.map((p) => (
-                  <tr key={p._id}>
-                    <td>
-                      <img src={getImageUrl(p.image)} alt={p.name} className={styles.productThumb} />
-                    </td>
-                    <td style={{ maxWidth: 200, fontWeight: 500 }}>{p.name}</td>
-                    <td style={{ textTransform: 'capitalize' }}>{p.category}</td>
-                    <td>${p.price.toFixed(2)}</td>
-                    <td>
-                      {p.badge ? (
-                        <span className={`${styles.badge} ${styles.badgeProcessing}`}>{p.badge}</span>
-                      ) : '—'}
-                    </td>
-                    <td>
-                      <span className={`${styles.badge} ${p.inStock ? styles.badgeInStock : styles.badgeOutOfStock}`}>
-                        {p.inStock ? 'In Stock' : 'Out'}
-                      </span>
-                    </td>
-                    <td>{p.rating} ★</td>
-                    <td>
-                      <div className={styles.actions}>
-                        <button className={styles.btnSecondary} onClick={() => openEdit(p)}>
-                          <FiEdit2 size={13} /> Edit
-                        </button>
-                        <button className={styles.btnDanger} onClick={() => handleDelete(p._id, p.name)}>
-                          <FiTrash2 size={13} />
-                        </button>
-                      </div>
-                    </td>
-                  </tr>
-                ))}
+                <AnimatePresence mode="popLayout">
+                  {filtered.length === 0 ? (
+                    <motion.tr layout initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+                      <td colSpan={8} style={{ textAlign: 'center', color: '#9ca3af' }}>No products found.</td>
+                    </motion.tr>
+                  ) : filtered.map((p) => (
+                    <motion.tr 
+                      key={p._id}
+                      layout
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, scale: 0.95 }}
+                      transition={{ duration: 0.2 }}
+                    >
+                      <td>
+                        <Image 
+                          src={getImageUrl(p.image) || 'https://via.placeholder.com/60'} 
+                          alt={p.name} 
+                          width={60} 
+                          height={60} 
+                          className={styles.productThumb} 
+                          style={{ objectFit: 'contain' }}
+                        />
+                      </td>
+                      <td style={{ maxWidth: 200, fontWeight: 500 }}>{p.name}</td>
+                      <td style={{ textTransform: 'capitalize' }}>{p.category}</td>
+                      <td>${p.price.toFixed(2)}</td>
+                      <td>
+                        {p.badge ? (
+                          <span className={`${styles.badge} ${styles.badgeProcessing}`}>{p.badge}</span>
+                        ) : '—'}
+                      </td>
+                      <td>
+                        <span className={`${styles.badge} ${p.inStock ? styles.badgeInStock : styles.badgeOutOfStock}`}>
+                          {p.inStock ? 'In Stock' : 'Out'}
+                        </span>
+                      </td>
+                      <td>{p.rating} ★</td>
+                      <td>
+                        <div className={styles.actions}>
+                          <button className={styles.btnSecondary} onClick={() => openEdit(p)}>
+                            <FiEdit2 size={13} /> Edit
+                          </button>
+                          <button className={styles.btnDanger} onClick={() => handleDelete(p._id, p.name)}>
+                            <FiTrash2 size={13} />
+                          </button>
+                        </div>
+                      </td>
+                    </motion.tr>
+                  ))}
+                </AnimatePresence>
               </tbody>
             </table>
           )}

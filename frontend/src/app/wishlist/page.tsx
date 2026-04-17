@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { motion, AnimatePresence } from 'framer-motion';
 import { FiHeart } from 'react-icons/fi';
 import { useAuth } from '@/context/AuthContext';
 import { wishlistAPI } from '@/services/api';
@@ -58,16 +59,24 @@ export default function WishlistPage() {
           <p>Browse products and save your favorites here.</p>
         </div>
       ) : (
-        <div className={styles.grid}>
-          {products.map((product) => (
-            <ProductCard
-              key={product._id}
-              product={product}
-              onWishlistToggle={handleToggle}
-              isWishlisted={true}
-            />
-          ))}
-        </div>
+        <motion.div layout className={styles.grid}>
+          <AnimatePresence mode="popLayout">
+            {products.map((product) => (
+              <motion.div
+                layout
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.8 }}
+                transition={{ duration: 0.25 }}
+                key={product._id}
+              >
+                <ProductCard
+                  product={product}
+                />
+              </motion.div>
+            ))}
+          </AnimatePresence>
+        </motion.div>
       )}
     </div>
   );

@@ -13,7 +13,7 @@ const ClientProviders: React.FC<{ children: React.ReactNode }> = ({ children }) 
       <CartProvider>
         <ToastProvider>
           <Navbar />
-          <main style={{ marginTop: '80px', minHeight: 'calc(100vh - 80px)' }}>
+          <main style={{ minHeight: 'calc(100vh - 80px)' }}>
             {children}
           </main>
           <Footer />

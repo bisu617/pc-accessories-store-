@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
+import { motion, AnimatePresence } from 'framer-motion';
 import { IProduct } from '@/types';
 import { wishlistAPI } from '@/services/api';
 import { useAuth } from '@/context/AuthContext';
@@ -16,7 +17,6 @@ const categoryOptions = [
   { value: 'headphone', label: 'Headsets' },
   { value: 'mousepad', label: 'Mouse Pads' },
   { value: 'monitor', label: 'Monitors' },
-  { value: 'accessories', label: 'Accessories' },
 ];
 
 const sortOptions = [
@@ -148,16 +148,24 @@ export default function ProductsClient({ initialProducts, initialCategory, initi
           <p>No products found in this category.</p>
         </div>
       ) : (
-        <div className={styles.grid}>
-          {products.map((product) => (
-            <ProductCard
-              key={product._id}
-              product={product}
-              onWishlistToggle={handleWishlistToggle}
-              isWishlisted={wishlist.includes(product._id)}
-            />
-          ))}
-        </div>
+        <motion.div layout className={styles.grid}>
+          <AnimatePresence mode="popLayout">
+            {products.map((product) => (
+              <motion.div
+                layout
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.8 }}
+                transition={{ duration: 0.25 }}
+                key={product._id}
+              >
+                <ProductCard
+                  product={product}
+                />
+              </motion.div>
+            ))}
+          </AnimatePresence>
+        </motion.div>
       )}
     </div>
   );

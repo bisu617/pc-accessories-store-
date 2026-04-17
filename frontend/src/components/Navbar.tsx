@@ -52,9 +52,6 @@ const Navbar: React.FC = () => {
           <Link href="/products" className={`${styles.navLink} ${pathname === '/products' ? styles.active : ''}`}>
             <FiBox /> Products
           </Link>
-          <Link href="/products?category=all" className={styles.navLink}>
-            <FiGrid /> Categories
-          </Link>
         </div>
 
         <Link href="/" className={styles.logo}>

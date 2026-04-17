@@ -40,11 +40,11 @@ const Footer: React.FC = () => {
         <div className={styles.footerSection}>
           <h3>Customer Service</h3>
           <ul>
-            <li><a href="#">Shipping Info</a></li>
-            <li><a href="#">Returns &amp; Exchanges</a></li>
-            <li><a href="#">Warranty</a></li>
-            <li><a href="#">Size Guide</a></li>
-            <li><a href="#">FAQ</a></li>
+            <li><Link href="/customer-service">Shipping Info</Link></li>
+            <li><Link href="/customer-service">Returns &amp; Exchanges</Link></li>
+            <li><Link href="/customer-service">Warranty</Link></li>
+            <li><Link href="/customer-service">Size Guide</Link></li>
+            <li><Link href="/customer-service">FAQ</Link></li>
           </ul>
         </div>
 
