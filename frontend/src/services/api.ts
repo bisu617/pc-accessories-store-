@@ -91,12 +91,12 @@ export const wishlistAPI = {
   toggle: (productId: string) => api.post(`/wishlist/${productId}`),
 };
 
-// Image URL helper - images are served from backend /images/
+// Image URL helper - images are served from Next.js public/images/
 export const getImageUrl = (imagePath: string): string => {
   if (!imagePath) return '';
   if (imagePath.startsWith('http')) return imagePath;
-  const baseUrl = API_URL.endsWith('/') ? API_URL.slice(0, -1) : API_URL;
-  return `${baseUrl}${imagePath}`;
+  // Serve starting from the root (Vercel automatic for public folder)
+  return imagePath;
 };
 
 // Admin API
