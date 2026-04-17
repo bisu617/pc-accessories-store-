@@ -22,7 +22,7 @@ const productSchema = new Schema<IProductDocument>(
     category: {
       type: String,
       required: [true, 'Category is required'],
-      enum: ['keyboard', 'mouse', 'headphone', 'mousepad', 'monitor', 'accessories'],
+      enum: ['keyboards', 'mice', 'headsets', 'mousepads', 'monitors', 'accessories'],
       lowercase: true,
     },
     price: {

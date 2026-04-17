@@ -8,11 +8,11 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { IProduct } from '@/types';
 import styles from '@/styles/Admin.module.css';
 
-const CATEGORIES = ['keyboard', 'mouse', 'headphone', 'mousepad', 'monitor'];
+const CATEGORIES = ['keyboards', 'mice', 'headsets', 'mousepads', 'monitors', 'accessories'];
 const BADGES = ['', 'hot', 'new', 'sale'];
 
 const emptyForm = {
-  name: '', category: 'keyboard', price: '', image: '',
+  name: '', category: 'keyboards', price: '', image: '',
   badge: '', features: '', rating: '0', inStock: true, description: '',
 };
 

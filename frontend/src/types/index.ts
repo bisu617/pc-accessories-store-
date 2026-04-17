@@ -1,7 +1,7 @@
 export interface IProduct {
   _id: string;
   name: string;
-  category: 'keyboard' | 'mouse' | 'headphone' | 'mousepad' | 'monitor';
+  category: 'keyboards' | 'mice' | 'headsets' | 'mousepads' | 'monitors' | 'accessories';
   price: number;
   image: string;
   badge?: 'hot' | 'new' | 'sale' | '';

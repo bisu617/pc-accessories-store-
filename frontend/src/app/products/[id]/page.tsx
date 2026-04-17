@@ -2,12 +2,11 @@
 
 import React, { useEffect, useState } from 'react';
 import { useParams, useRouter } from 'next/navigation';
-import { FiShoppingCart, FiHeart, FiArrowLeft, FiCheck, FiX } from 'react-icons/fi';
+import { FiShoppingCart, FiHeart, FiArrowLeft, FiCheck, FiX, FiTruck, FiShield } from 'react-icons/fi';
 import { IProduct } from '@/types';
 import { productsAPI, getImageUrl } from '@/services/api';
 import { useCart } from '@/context/CartContext';
 import { useToast } from '@/components/Toast';
-import LoadingSpinner from '@/components/LoadingSpinner';
 import ProductCard from '@/components/ProductCard';
 import styles from '@/styles/ProductDetail.module.css';
 
@@ -21,6 +20,7 @@ export default function ProductDetailPage() {
   const [relatedProducts, setRelatedProducts] = useState<IProduct[]>([]);
   const [loading, setLoading] = useState(true);
   const [added, setAdded] = useState(false);
+  const [activeTab, setActiveTab] = useState('overview');
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -52,7 +52,27 @@ export default function ProductDetailPage() {
     setTimeout(() => setAdded(false), 2000);
   };
 
-  if (loading) return <LoadingSpinner size={50} text="Loading product..." />;
+  if (loading) {
+    return (
+      <div className={styles.container}>
+        <div className="skeleton" style={{ width: '100px', height: '40px', marginBottom: '20px' }}></div>
+        <div className={styles.productLayout}>
+          <div className={styles.imageSection}>
+            <div className="skeleton" style={{ width: '100%', aspectRatio: '1/1', borderRadius: '12px' }}></div>
+          </div>
+          <div className={styles.infoSection}>
+            <div className="skeleton" style={{ width: '120px', height: '24px', marginBottom: '10px' }}></div>
+            <div className="skeleton" style={{ width: '80%', height: '40px', marginBottom: '20px' }}></div>
+            <div className="skeleton" style={{ width: '150px', height: '24px', marginBottom: '20px' }}></div>
+            <div className="skeleton" style={{ width: '120px', height: '32px', marginBottom: '30px' }}></div>
+            <div className="skeleton" style={{ width: '100%', height: '200px', marginBottom: '30px', borderRadius: '8px' }}></div>
+            <div className="skeleton" style={{ width: '100%', height: '50px', borderRadius: '25px' }}></div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   if (!product) return null;
 
   return (
@@ -84,49 +104,103 @@ export default function ProductDetailPage() {
           <h1 className={styles.name}>{product.name}</h1>
 
           <div className={styles.rating}>
-            {'★'.repeat(Math.floor(product.rating))}
-            {'☆'.repeat(5 - Math.floor(product.rating))}
-            <span>{product.rating} / 5.0</span>
+            <span style={{ color: '#fbbc04', letterSpacing: '2px' }}>
+              {'★'.repeat(Math.floor(product.rating))}
+              {'☆'.repeat(5 - Math.floor(product.rating))}
+            </span>
+            <span style={{ marginLeft: '8px', color: 'var(--text-light)', fontSize: '0.9rem' }}>
+              {product.rating} / 5.0 (124 Reviews)
+            </span>
           </div>
 
           <div className={styles.price}>${product.price.toFixed(2)}</div>
 
           <div className={styles.stock}>
             {product.inStock ? (
-              <span className={styles.inStock}><FiCheck /> In Stock</span>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: 'var(--success-color)' }}>
+                <FiCheck /> <span style={{ fontWeight: 600 }}>In Stock — Ready to ship</span>
+              </div>
             ) : (
-              <span className={styles.outOfStock}><FiX /> Out of Stock</span>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: 'var(--error-color)' }}>
+                <FiX /> <span style={{ fontWeight: 600 }}>Out of Stock</span>
+              </div>
             )}
           </div>
 
-          <div className={styles.features}>
-            <h3>Features</h3>
-            <div className={styles.featureTags}>
-              {product.features.map((f, i) => (
-                <span key={i} className={styles.featureTag}>{f}</span>
-              ))}
+          {/* Delivery Info */}
+          <div style={{ padding: '15px', background: 'var(--bg-light)', borderRadius: '8px', marginBottom: '25px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '8px', color: 'var(--text-dark)', fontSize: '0.9rem' }}>
+              <FiTruck size={18} /> <span>Free shipping on orders over $50</span>
+            </div>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '10px', color: 'var(--text-dark)', fontSize: '0.9rem' }}>
+              <FiShield size={18} /> <span>1 Year Original Manufacturer Warranty</span>
             </div>
           </div>
-
-          {product.description && (
-            <div className={styles.description}>
-              <h3>Description</h3>
-              <p>{product.description}</p>
-            </div>
-          )}
 
           <div className={styles.actions}>
             <button
               className={`${styles.addToCartBtn} ${added ? styles.added : ''}`}
               onClick={handleAddToCart}
               disabled={!product.inStock}
+              style={{ flexGrow: 1 }}
             >
               <FiShoppingCart />
               {added ? 'Added to Cart!' : product.inStock ? 'Add to Cart' : 'Out of Stock'}
             </button>
-            <button className={styles.wishlistBtn}>
+            <button className={styles.wishlistBtn} style={{ padding: '0 20px', fontSize: '1.2rem' }}>
               <FiHeart />
             </button>
+          </div>
+
+          {/* Tabs Navigation */}
+          <div style={{ marginTop: '40px', borderBottom: '2px solid var(--border-color)', display: 'flex', gap: '20px' }}>
+            {['overview', 'specifications', 'reviews'].map((tab) => (
+              <button
+                key={tab}
+                onClick={() => setActiveTab(tab)}
+                style={{
+                  background: 'none',
+                  border: 'none',
+                  padding: '10px 0',
+                  fontSize: '1rem',
+                  fontWeight: activeTab === tab ? 800 : 500,
+                  color: activeTab === tab ? 'var(--primary-color)' : 'var(--text-light)',
+                  borderBottom: activeTab === tab ? '3px solid var(--primary-color)' : '3px solid transparent',
+                  cursor: 'pointer',
+                  textTransform: 'capitalize',
+                  marginBottom: '-2px'
+                }}
+              >
+                {tab}
+              </button>
+            ))}
+          </div>
+
+          {/* Tabs Content */}
+          <div style={{ marginTop: '20px', minHeight: '150px' }}>
+            {activeTab === 'overview' && (
+              <div className={styles.description}>
+                <p style={{ lineHeight: 1.6, color: 'var(--text-dark)' }}>{product.description}</p>
+                <div style={{ marginTop: '15px' }}>
+                  <h4 style={{ marginBottom: '10px' }}>Key Features</h4>
+                  <ul style={{ paddingLeft: '20px', color: 'var(--text-dark)' }}>
+                    {product.features.map((f, i) => (
+                      <li key={i} style={{ marginBottom: '5px' }}>{f}</li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            )}
+            {activeTab === 'specifications' && (
+              <div>
+                <p style={{ color: 'var(--text-light)' }}>Detailed specifications are not available for this product yet.</p>
+              </div>
+            )}
+            {activeTab === 'reviews' && (
+              <div>
+                <p style={{ color: 'var(--text-light)' }}>User reviews loading...</p>
+              </div>
+            )}
           </div>
         </div>
       </div>
@@ -144,3 +218,4 @@ export default function ProductDetailPage() {
     </div>
   );
 }
+

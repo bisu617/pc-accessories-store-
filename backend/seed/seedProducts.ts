@@ -16,7 +16,7 @@ import Product from '../src/models/Product.js';
 const products = [
   {
     name: 'Yuki Aim - Polar75 - 8k Dragon Edition',
-    category: 'keyboard',
+    category: 'keyboards',
     price: 190,
     image: '/images/yuki aim 1.png',
     badge: 'hot',
@@ -27,7 +27,7 @@ const products = [
   },
   {
     name: 'Yuki Aim Hall Effect Magnetic 65%',
-    category: 'keyboard',
+    category: 'keyboards',
     price: 175,
     image: '/images/yuki aim 2.png',
     badge: '',
@@ -38,7 +38,7 @@ const products = [
   },
   {
     name: 'Viper Mini',
-    category: 'mouse',
+    category: 'mice',
     price: 89,
     image: '/images/mouse_2-removebg-preview.png',
     badge: '',
@@ -49,7 +49,7 @@ const products = [
   },
   {
     name: 'Viper Mini Signature Edition',
-    category: 'mouse',
+    category: 'mice',
     price: 115,
     image: '/images/mouse 1.png',
     badge: 'sale',
@@ -60,7 +60,7 @@ const products = [
   },
   {
     name: 'Razer Barracuda Pro',
-    category: 'headphone',
+    category: 'headsets',
     price: 200,
     image: '/images/headphone-removebg-preview.png',
     badge: 'new',
@@ -71,7 +71,7 @@ const products = [
   },
   {
     name: 'Yuki Aim - Kitsune LARGE Mousepad',
-    category: 'mousepad',
+    category: 'mousepads',
     price: 35,
     image: '/images/mousepad 2.png',
     badge: '',
@@ -82,7 +82,7 @@ const products = [
   },
   {
     name: 'Koorui 24E3 24" 165Hz Gaming Monitor',
-    category: 'monitor',
+    category: 'monitors',
     price: 199,
     image: '/images/monitor1.png',
     badge: 'hot',
@@ -93,7 +93,7 @@ const products = [
   },
   {
     name: 'AOC C27G4X 27" Curved Gaming Monitor',
-    category: 'monitor',
+    category: 'monitors',
     price: 250,
     image: '/images/monitor2.jpg',
     badge: '',

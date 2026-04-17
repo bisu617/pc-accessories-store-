@@ -1,121 +1,151 @@
 .cardWrapper {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  text-align: center;
   background: var(--bg-white);
+  padding: 1.5rem;
+  border-radius: var(--border-radius-lg);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  height: 100%; /* Ensure card takes full height of grid row */
+  border: 1px solid var(--border-light);
+}
+
+.cardWrapper:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-medium);
 }
 
 .cardImageLink {
   width: 100%;
   aspect-ratio: 1 / 1;
-  margin-bottom: 1rem;
+  margin-bottom: 1.25rem;
   position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
+  background: var(--bg-light);
+  border-radius: var(--border-radius);
+  overflow: hidden;
 }
 
 .imageContainer {
   position: relative;
-  width: 90%;
-  height: 90%;
+  width: 85%;
+  height: 85%;
 }
 
 .productImg {
   object-fit: contain;
-  transition: transform 0.3s ease;
+  transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 .cardImageLink:hover .productImg {
-  transform: translateY(-5px);
+  transform: scale(1.1);
 }
 
 .saleBadge {
   position: absolute;
-  top: 0;
-  left: 0;
+  top: 10px;
+  left: 10px;
   background-color: var(--error-color);
   color: white;
-  font-size: 0.65rem;
+  font-size: 0.7rem;
   font-weight: 800;
-  padding: 0.25rem 0.6rem;
+  padding: 0.3rem 0.7rem;
   border-radius: var(--border-radius-pill);
   letter-spacing: 0.05em;
   z-index: 2;
+  box-shadow: 0 2px 10px rgba(255, 78, 80, 0.3);
 }
 
 .cardInfo {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  width: 100%;
+  flex: 1; /* This pushes the button to the bottom */
+  text-align: left; /* Changing to left-aligned for a more premium look */
 }
 
 .nameLink {
   text-decoration: none;
-  margin-bottom: 0.25rem;
+  margin-bottom: 0.5rem;
+  display: block;
 }
 
 .name {
   color: var(--text-dark);
-  font-weight: 800;
-  font-size: 1.1rem;
-  line-height: 1.2;
+  font-weight: 700;
+  font-size: 1.05rem;
+  line-height: 1.3;
+  transition: color 0.2s;
+  /* Multi-line ellipsis */
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  height: 2.6rem; /* Consistent height for 2 lines */
+}
+
+.nameLink:hover .name {
+  color: var(--primary-color);
 }
 
 .ratingBox {
   display: flex;
   align-items: center;
-  gap: 0.25rem;
-  margin-bottom: 0.5rem;
+  gap: 0.4rem;
+  margin-bottom: 0.75rem;
 }
 
 .stars {
-  color: #fbbc04; /* Raycon yellow star color */
-  font-size: 1.1rem;
+  color: #fbbc04;
+  font-size: 0.9rem;
   letter-spacing: 1px;
 }
 
 .ratingCount {
   color: var(--text-light);
   font-size: 0.75rem;
-  font-weight: 600;
+  font-weight: 500;
 }
 
 .priceContainer {
   display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  margin-bottom: 1rem;
+  align-items: baseline;
+  gap: 0.6rem;
+  margin-bottom: 1.5rem;
+  margin-top: auto; /* Push price and button together to the bottom */
 }
 
 .price {
   font-weight: 800;
-  font-size: 1rem;
+  font-size: 1.25rem;
   color: var(--text-dark);
 }
 
 .originalPrice {
-  font-weight: 600;
-  font-size: 0.85rem;
+  font-weight: 500;
+  font-size: 0.9rem;
   color: var(--text-light);
   text-decoration: line-through;
 }
 
 .buyNowBtn {
-  background-color: var(--primary-end);
+  background: var(--primary-gradient);
   color: white;
-  font-weight: 800;
-  font-size: 0.8rem;
+  font-weight: 700;
+  font-size: 0.85rem;
   text-transform: uppercase;
-  padding: 0.6rem 2rem;
+  padding: 0.8rem 1.5rem;
   border-radius: var(--border-radius-pill);
-  letter-spacing: 0.05em;
-  transition: opacity 0.2s;
+  letter-spacing: 0.08em;
+  transition: all 0.3s ease;
   text-decoration: none;
+  text-align: center;
+  border: none;
+  width: 100%;
 }
 
 .buyNowBtn:hover {
-  opacity: 0.85;
+  filter: brightness(1.1);
+  box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
 }
+

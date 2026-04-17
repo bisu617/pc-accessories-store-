@@ -85,8 +85,28 @@ export default function CheckoutPage() {
               <input type="text" value={address.country} onChange={(e) => setAddress({ ...address, country: e.target.value })} required />
             </div>
           </div>
+          <h3 style={{ marginTop: '30px' }}><FiCheck /> Payment Details</h3>
+          <div className={styles.formGroup}>
+            <label>Cardholder Name</label>
+            <input type="text" placeholder="John Doe" required />
+          </div>
+          <div className={styles.formGroup}>
+            <label>Card Number</label>
+            <input type="text" placeholder="XXXX XXXX XXXX XXXX" required />
+          </div>
+          <div className={styles.formRow}>
+            <div className={styles.formGroup}>
+              <label>Expiry Date</label>
+              <input type="text" placeholder="MM/YY" required />
+            </div>
+            <div className={styles.formGroup}>
+              <label>CVV</label>
+              <input type="text" placeholder="123" required />
+            </div>
+          </div>
+
           <button type="submit" className={styles.placeOrderBtn} disabled={loading}>
-            {loading ? 'Placing Order...' : 'Place Order'}
+            {loading ? 'Processing Payment...' : 'Pay & Place Order'}
           </button>
         </form>
 

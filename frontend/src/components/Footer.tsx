@@ -31,9 +31,11 @@ const Footer: React.FC = () => {
           <ul>
             <li><Link href="/">Home</Link></li>
             <li><Link href="/products">Products</Link></li>
-            <li><Link href="/products?category=keyboard">Keyboards</Link></li>
-            <li><Link href="/products?category=mouse">Mice</Link></li>
-            <li><Link href="/products?category=monitor">Monitors</Link></li>
+            <li><Link href="/products?category=keyboards">Keyboards</Link></li>
+            <li><Link href="/products?category=mice">Mice</Link></li>
+            <li><Link href="/products?category=headsets">Headsets</Link></li>
+            <li><Link href="/products?category=mousepads">Mouse Pads</Link></li>
+            <li><Link href="/products?category=monitors">Monitors</Link></li>
           </ul>
         </div>
 

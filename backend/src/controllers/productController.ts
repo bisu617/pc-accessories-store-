@@ -12,7 +12,16 @@ export const getProducts = async (
     // Build filter
     const filter: any = {};
     if (category && category !== 'all') {
-      filter.category = category;
+      const catStr = category.toString().toLowerCase();
+      const singular = catStr.endsWith('s') ? catStr.slice(0, -1) : catStr;
+      const plural = catStr.endsWith('s') ? catStr : catStr + 's';
+      const variants = [catStr, singular, plural];
+      
+      // Special cases
+      if (catStr === 'mice' || catStr === 'mouse') variants.push('mice', 'mouse');
+      if (catStr === 'headsets' || catStr === 'headphone') variants.push('headsets', 'headphone');
+      
+      filter.category = { $in: variants };
     }
     if (search) {
       filter.name = { $regex: search, $options: 'i' };

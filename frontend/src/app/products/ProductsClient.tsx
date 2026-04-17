@@ -12,12 +12,25 @@ import styles from '@/styles/Products.module.css';
 
 const categoryOptions = [
   { value: 'all', label: 'All Products' },
-  { value: 'keyboard', label: 'Keyboards' },
-  { value: 'mouse', label: 'Mice' },
-  { value: 'headphone', label: 'Headsets' },
-  { value: 'mousepad', label: 'Mouse Pads' },
-  { value: 'monitor', label: 'Monitors' },
+  { value: 'keyboards', label: 'Keyboards' },
+  { value: 'mice', label: 'Mice' },
+  { value: 'headsets', label: 'Headsets' },
+  { value: 'mousepads', label: 'Mouse Pads' },
+  { value: 'monitors', label: 'Monitors' },
 ];
+
+const normalizeCategory = (cat: string | null) => {
+  if (!cat || cat === 'all') return 'all';
+  const mapping: Record<string, string> = {
+    'keyboard': 'keyboards',
+    'mouse': 'mice',
+    'headphone': 'headsets',
+    'headsets': 'headsets',
+    'mousepad': 'mousepads',
+    'monitor': 'monitors',
+  };
+  return mapping[cat.toLowerCase()] || cat.toLowerCase();
+};
 
 const sortOptions = [
   { value: 'featured', label: 'Featured' },
@@ -39,13 +52,13 @@ export default function ProductsClient({ initialProducts, initialCategory, initi
   const { token } = useAuth();
   const { showToast } = useToast();
 
-  const [category, setCategory] = useState(initialCategory);
+  const [category, setCategory] = useState(normalizeCategory(initialCategory));
   const [sort, setSort] = useState(initialSort);
   const [wishlist, setWishlist] = useState<string[]>([]);
 
   // Keep category/sort in sync with URL (e.g. browser back/forward)
   useEffect(() => {
-    setCategory(searchParams.get('category') || 'all');
+    setCategory(normalizeCategory(searchParams.get('category')));
     setSort(searchParams.get('sort') || 'featured');
   }, [searchParams]);
 
@@ -88,7 +101,14 @@ export default function ProductsClient({ initialProducts, initialCategory, initi
     let list = [...initialProducts];
 
     if (category !== 'all') {
-      list = list.filter((p) => p.category === category);
+      const singular = category.endsWith('s') ? category.slice(0, -1) : category;
+      const plural = category.endsWith('s') ? category : category + 's';
+      // Handle special cases like 'mice' / 'mouse'
+      const variants = [category, singular, plural];
+      if (category === 'mice' || category === 'mouse') variants.push('mice', 'mouse');
+      if (category === 'headsets' || category === 'headphone') variants.push('headsets', 'headphone');
+      
+      list = list.filter((p) => variants.includes(p.category.toLowerCase()));
     }
 
     switch (sort) {

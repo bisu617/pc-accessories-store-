@@ -1,0 +1,129 @@
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 100px 20px 60px;
+  min-height: 80vh;
+}
+
+.hero {
+  margin-bottom: 60px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 30px;
+  margin-bottom: 60px;
+}
+
+.card {
+  background: var(--bg-white);
+  padding: 40px 30px;
+  border-radius: var(--border-radius-large);
+  box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+  transition: transform 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+}
+
+.iconWrapper {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 64px;
+  background: rgba(0, 112, 243, 0.1);
+  color: var(--primary-color);
+  border-radius: 50%;
+  margin-bottom: 20px;
+}
+
+.card h3 {
+  font-size: 1.3rem;
+  margin-bottom: 15px;
+  color: var(--text-dark);
+}
+
+.card p {
+  color: var(--text-light);
+  line-height: 1.6;
+  margin-bottom: 20px;
+  font-size: 0.95rem;
+}
+
+.list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.list li {
+  position: relative;
+  padding-left: 20px;
+  margin-bottom: 10px;
+  color: var(--text-dark);
+  font-size: 0.9rem;
+}
+
+.list li::before {
+  content: '•';
+  color: var(--primary-color);
+  font-weight: bold;
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+.faq strong {
+  display: block;
+  font-size: 0.95rem;
+  color: var(--text-dark);
+  margin-bottom: 5px;
+}
+
+.faq p {
+  margin-bottom: 15px;
+}
+
+.faq a {
+  color: var(--primary-color);
+  text-decoration: underline;
+}
+
+.contactBanner {
+  background: linear-gradient(135deg, var(--bg-dark) 0%, #2a2a35 100%);
+  color: white;
+  padding: 50px 30px;
+  border-radius: var(--border-radius-large);
+  text-align: center;
+}
+
+.contactBanner h2 {
+  font-size: 2rem;
+  margin-bottom: 15px;
+}
+
+.contactBanner p {
+  opacity: 0.8;
+  margin-bottom: 30px;
+  font-size: 1.1rem;
+}
+
+.contactBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--primary-color);
+  color: white;
+  padding: 15px 30px;
+  border-radius: var(--border-radius-pill);
+  font-weight: 700;
+  text-decoration: none;
+  transition: opacity 0.2s;
+}
+
+.contactBtn:hover {
+  opacity: 0.9;
+}
