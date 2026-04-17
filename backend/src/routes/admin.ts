@@ -12,6 +12,8 @@ import {
   adminGetUsers,
   adminUpdateUserRole,
   setupFirstAdmin,
+  adminUploadImage,
+  upload,
 } from '../controllers/adminController.js';
 
 const router = Router();
@@ -27,6 +29,7 @@ router.get('/products', adminGetProducts);
 router.post('/products', adminCreateProduct);
 router.put('/products/:id', adminUpdateProduct);
 router.delete('/products/:id', adminDeleteProduct);
+router.post('/upload', upload.single('image'), adminUploadImage);
 
 // Orders
 router.get('/orders', adminGetOrders);

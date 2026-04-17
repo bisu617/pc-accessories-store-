@@ -2,6 +2,24 @@ import { Request, Response } from 'express';
 import Product from '../models/Product.js';
 import Order from '../models/Order.js';
 import User from '../models/User.js';
+import sharp from 'sharp';
+import path from 'path';
+import fs from 'fs';
+import multer from 'multer';
+
+// Multer config for memory storage
+const storage = multer.memoryStorage();
+export const upload = multer({
+  storage,
+  limits: { fileSize: 5 * 1024 * 1024 }, // 5MB limit
+  fileFilter: (_req, file, cb) => {
+    if (file.mimetype.startsWith('image/')) {
+      cb(null, true);
+    } else {
+      cb(new Error('Only images are allowed'));
+    }
+  }
+});
 
 // ─── Dashboard Stats ──────────────────────────────────────────────────────────
 
@@ -206,5 +224,38 @@ export const setupFirstAdmin = async (req: Request, res: Response): Promise<void
     res.json({ message: `${user.email} is now an admin.` });
   } catch {
     res.status(500).json({ message: 'Setup failed.' });
+  }
+};
+
+// ─── Image Upload & Convert ──────────────────────────────────────────────────
+
+export const adminUploadImage = async (req: Request, res: Response): Promise<void> => {
+  try {
+    if (!req.file) {
+      res.status(400).json({ message: 'No file uploaded.' });
+      return;
+    }
+
+    const fileName = `product_${Date.now()}.webp`;
+    const outputPath = path.join(process.cwd(), 'public', 'images', fileName);
+
+    // Ensure directory exists
+    const dir = path.dirname(outputPath);
+    if (!fs.existsSync(dir)) {
+      fs.mkdirSync(dir, { recursive: true });
+    }
+
+    // Process with sharp
+    await sharp(req.file.buffer)
+      .webp({ quality: 80 })
+      .toFile(outputPath);
+
+    res.json({ 
+      message: 'Image uploaded and converted successfully',
+      url: `/images/${fileName}` 
+    });
+  } catch (err: any) {
+    console.error('Upload error:', err);
+    res.status(500).json({ message: 'Failed to process image.' });
   }
 };

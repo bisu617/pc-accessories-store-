@@ -91,11 +91,12 @@ export const wishlistAPI = {
   toggle: (productId: string) => api.post(`/wishlist/${productId}`),
 };
 
-// Image URL helper - images are served from Next.js public/images/
+// Image URL helper - images are served from backend /images/
 export const getImageUrl = (imagePath: string): string => {
+  if (!imagePath) return '';
   if (imagePath.startsWith('http')) return imagePath;
-  // imagePath is like '/images/foo.png' — served directly by Next.js
-  return imagePath;
+  const baseUrl = API_URL.endsWith('/') ? API_URL.slice(0, -1) : API_URL;
+  return `${baseUrl}${imagePath}`;
 };
 
 // Admin API
@@ -118,6 +119,12 @@ export const adminAPI = {
   getUsers: (params?: { page?: number }) => api.get('/admin/users', { params }),
   updateUserRole: (id: string, role: 'user' | 'admin') =>
     api.put(`/admin/users/${id}/role`, { role }),
+
+  // Upload
+  uploadImage: (formData: FormData) => 
+    api.post('/admin/upload', formData, {
+      headers: { 'Content-Type': 'multipart/form-data' }
+    }),
 };
 
 export default api;

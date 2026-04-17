@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import { FiPlus, FiEdit2, FiTrash2, FiX } from 'react-icons/fi';
+import { FiPlus, FiEdit2, FiTrash2, FiX, FiUpload } from 'react-icons/fi';
 import Image from 'next/image';
 import { adminAPI, getImageUrl } from '@/services/api';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -61,6 +61,24 @@ export default function AdminProductsPage() {
     if (!confirm(`Delete "${name}"? This cannot be undone.`)) return;
     await adminAPI.deleteProduct(id);
     setProducts((prev) => prev.filter((p) => p._id !== id));
+  };
+
+  const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    const formData = new FormData();
+    formData.append('image', file);
+
+    try {
+      setSaving(true);
+      const res = await adminAPI.uploadImage(formData);
+      setForm({ ...form, image: res.data.url });
+    } catch (err: any) {
+      alert(err.response?.data?.message || 'Upload failed.');
+    } finally {
+      setSaving(false);
+    }
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -215,12 +233,30 @@ export default function AdminProductsPage() {
                       onChange={(e) => setForm({ ...form, price: e.target.value })} />
                   </div>
                   <div className={`${styles.formGroup} ${styles.fullWidth}`}>
-                    <label>Image path or URL *</label>
-                    <input required placeholder="/images/keyboard.jpg or https://..." value={form.image}
-                      onChange={(e) => setForm({ ...form, image: e.target.value })} />
+                    <label>Product Image *</label>
+                    <div className={styles.imageUploadWrapper}>
+                      <input 
+                        type="text" 
+                        placeholder="/images/keyboard.webp or https://..." 
+                        value={form.image}
+                        onChange={(e) => setForm({ ...form, image: e.target.value })}
+                        className={styles.imagePathInput}
+                      />
+                      <label className={styles.uploadBtn}>
+                        <FiUpload /> Upload
+                        <input type="file" accept="image/*" onChange={handleFileUpload} hidden />
+                      </label>
+                    </div>
+                    <p style={{ fontSize: '0.75rem', color: '#6b7280', marginTop: '4px' }}>
+                      Tip: Uploaded images are automatically optimized into <b>WebP</b> format.
+                    </p>
                     {form.image && (
-                      <img src={getImageUrl(form.image)} alt="preview"
-                        style={{ width: 60, height: 60, objectFit: 'contain', marginTop: 6, borderRadius: 6, border: '1px solid #e5e7eb' }} />
+                      <div className={styles.previewWrapper}>
+                        <img src={getImageUrl(form.image)} alt="preview" className={styles.imagePreview} />
+                        <button type="button" className={styles.removeImage} onClick={() => setForm({ ...form, image: '' })}>
+                          <FiX size={14} />
+                        </button>
+                      </div>
                     )}
                   </div>
                   <div className={styles.formGroup}>
