@@ -21,7 +21,8 @@
 .features h3, .description h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 0.75rem; color: var(--text-dark); }
 .featureTags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
 .featureTag { background: rgba(102, 126, 234, 0.08); color: var(--primary-start); padding: 0.4rem 1rem; border-radius: var(--border-radius-full); font-size: 0.9rem; font-weight: 600; }
-.description p { color: var(--text-light); line-height: 1.8; font-size: 1rem; }
+.description { margin-top: 1rem; }
+.description p { color: var(--text-dark); line-height: 1.8; font-size: 1rem; margin-bottom: 1.5rem; }
 .actions { display: flex; gap: 1rem; margin-top: 1rem; }
 .addToCartBtn { flex: 1; display: flex; align-items: center; justify-content: center; gap: 0.75rem; background: var(--primary-gradient); color: white; border: none; padding: 1.15rem 2rem; border-radius: var(--border-radius); font-weight: 700; font-size: 1.1rem; cursor: pointer; transition: var(--transition); }
 .addToCartBtn:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4); }
@@ -33,6 +34,75 @@
 .related { padding-top: 2rem; border-top: 1px solid var(--border-light); }
 .related h2 { margin-bottom: 2rem; }
 .relatedGrid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 2rem; }
+
+.deliveryBox {
+  padding: 20px;
+  background: #f8fafc;
+  border-radius: 12px;
+  margin-bottom: 25px;
+  border: 1px solid #e2e8f0;
+}
+
+.deliveryItem {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 10px;
+  color: var(--text-dark);
+  font-size: 0.95rem;
+}
+
+.deliveryItem:last-child {
+  margin-bottom: 0;
+}
+
+.tabsNav {
+  margin-top: 40px;
+  border-bottom: 2px solid #e2e8f0;
+  display: flex;
+  gap: 30px;
+}
+
+.tabBtn {
+  background: none;
+  border: none;
+  padding: 12px 0;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-light);
+  border-bottom: 3px solid transparent;
+  cursor: pointer;
+  text-transform: capitalize;
+  margin-bottom: -2px;
+  transition: all 0.2s;
+}
+
+.tabActive {
+  color: var(--primary-color);
+  border-bottom-color: var(--primary-color);
+  font-weight: 800;
+}
+
+.tabContent {
+  margin-top: 25px;
+  min-height: 180px;
+}
+
+.featureList {
+  padding-left: 20px;
+  color: var(--text-dark);
+}
+
+.featureList li {
+  margin-bottom: 8px;
+  line-height: 1.5;
+}
+
+.specsPlaceholder, .reviewsPlaceholder {
+  color: var(--text-light);
+  font-style: italic;
+  padding: 20px 0;
+}
 
 @media (max-width: 768px) {
   .container { padding: 1rem; }

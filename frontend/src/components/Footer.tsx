@@ -54,8 +54,8 @@ const Footer: React.FC = () => {
           <h3>Contact Info</h3>
           <div className={styles.contactInfo}>
             <p><FiMail /> support@bytebazartech.com</p>
-            <p><FiPhone /> +977 123-456-7890</p>
-            <p><FiMapPin /> IIMS College, Kathmandu, Nepal</p>
+            <p><FiPhone /> +977 1 4412345</p>
+            <p><FiMapPin /> Byte Tower, Phase III, Kathmandu, Nepal</p>
             <p><FiClock /> Mon-Fri: 9AM-6PM</p>
           </div>
         </div>
