@@ -140,6 +140,11 @@ export default function ProductsClient({ initialProducts, initialCategory, initi
 
   return (
     <div className={styles.container}>
+      {/* Visually hidden H2 for heading hierarchy (H1 -> H2 -> H3) */}
+      <h2 style={{ position: 'absolute', width: '1px', height: '1px', padding: 0, margin: '-1px', overflow: 'hidden', clip: 'rect(0, 0, 0, 0)', whiteSpace: 'nowrap', border: 0 }}>
+        Product Filters and Results
+      </h2>
+      
       <div className={styles.header}>
         <div>
           <h1 className="section-title">{category === 'all' ? 'All Products' : categoryLabel}</h1>
@@ -152,6 +157,7 @@ export default function ProductsClient({ initialProducts, initialCategory, initi
             value={sort}
             onChange={(e) => handleSortChange(e.target.value)}
             className={styles.select}
+            aria-label="Sort products by"
           >
             {sortOptions.map((opt) => (
               <option key={opt.value} value={opt.value}>{opt.label}</option>

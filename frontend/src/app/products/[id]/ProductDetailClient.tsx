@@ -133,7 +133,7 @@ export default function ProductDetailClient({ product, relatedProducts }: Produc
               <div className={styles.description}>
                 <p>{product.description}</p>
                 <div style={{ marginTop: '20px' }}>
-                  <h4 style={{ marginBottom: '10px' }}>Key Features</h4>
+                  <h2 style={{ fontSize: '1.25rem', marginBottom: '10px' }}>Key Features</h2>
                   <ul className={styles.featureList}>
                     {product.features.map((f, i) => (
                       <li key={i}>{f}</li>
