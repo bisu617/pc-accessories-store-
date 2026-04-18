@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect, useCallback, useMemo } from 'react';
+import React, { useState, useEffect, useCallback, useMemo, useTransition } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import { IProduct } from '@/types';
@@ -51,7 +51,7 @@ export default function ProductsClient({ initialProducts, initialCategory, initi
   const searchParams = useSearchParams();
   const { token } = useAuth();
   const { showToast } = useToast();
-
+  const [isPending, startTransition] = useTransition();
   const [category, setCategory] = useState(normalizeCategory(initialCategory));
   const [sort, setSort] = useState(initialSort);
   const [wishlist, setWishlist] = useState<string[]>([]);
@@ -71,15 +71,24 @@ export default function ProductsClient({ initialProducts, initialCategory, initi
   }, [token]);
 
   const handleCategoryChange = (val: string) => {
-    const params = new URLSearchParams(searchParams.toString());
-    if (val === 'all') params.delete('category'); else params.set('category', val);
-    router.push(`/products?${params.toString()}`);
+    // Update state immediately for instant feedback
+    setCategory(val);
+    
+    startTransition(() => {
+      const params = new URLSearchParams(searchParams.toString());
+      if (val === 'all') params.delete('category'); else params.set('category', val);
+      router.push(`/products?${params.toString()}`, { scroll: false });
+    });
   };
 
   const handleSortChange = (val: string) => {
-    const params = new URLSearchParams(searchParams.toString());
-    if (val === 'featured') params.delete('sort'); else params.set('sort', val);
-    router.push(`/products?${params.toString()}`);
+    setSort(val);
+    
+    startTransition(() => {
+      const params = new URLSearchParams(searchParams.toString());
+      if (val === 'featured') params.delete('sort'); else params.set('sort', val);
+      router.push(`/products?${params.toString()}`, { scroll: false });
+    });
   };
 
   const handleWishlistToggle = useCallback(async (productId: string) => {
@@ -168,7 +177,12 @@ export default function ProductsClient({ initialProducts, initialCategory, initi
           <p>No products found in this category.</p>
         </div>
       ) : (
-        <motion.div layout className={styles.grid}>
+        <motion.div 
+          layout 
+          className={styles.grid}
+          animate={{ opacity: isPending ? 0.6 : 1 }}
+          transition={{ duration: 0.2 }}
+        >
           <AnimatePresence mode="popLayout">
             {products.map((product) => (
               <motion.div
