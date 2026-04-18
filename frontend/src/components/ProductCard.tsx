@@ -26,7 +26,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
             alt={product.name}
             fill
             className={styles.productImg}
-            sizes="(max-width: 768px) 50vw, 25vw"
+            sizes="(max-width: 600px) 100vw, (max-width: 900px) 50vw, 300px"
           />
           {isSale && (
             <span className={styles.saleBadge}>SALE</span>

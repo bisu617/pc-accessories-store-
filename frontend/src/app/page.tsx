@@ -51,7 +51,7 @@ export default async function HomePage() {
               height={450}
               className={styles.mainHeroImg}
               priority
-              sizes="(max-width: 768px) 100vw, 50vw"
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 600px"
             />
           </div>
         </div>
