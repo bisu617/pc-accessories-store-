@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import Image from 'next/image';
 import { FiShoppingCart, FiHeart, FiArrowLeft, FiCheck, FiX, FiTruck, FiShield } from 'react-icons/fi';
 import { IProduct } from '@/types';
 import { getImageUrl } from '@/services/api';
@@ -50,12 +51,13 @@ export default function ProductDetailClient({ product, relatedProducts }: Produc
                 {product.badge}
               </span>
             )}
-            <img
+            <Image
               src={getImageUrl(product.image)}
               alt={product.name}
-              onError={(e) => {
-                (e.target as HTMLImageElement).src = 'https://via.placeholder.com/500x400?text=Image+Not+Found';
-              }}
+              width={500}
+              height={400}
+              className={styles.productImage}
+              priority
             />
           </div>
         </div>

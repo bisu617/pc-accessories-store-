@@ -12,7 +12,7 @@ interface ProductCardProps {
 }
 
 const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
-  const [imgSrc, setImgSrc] = React.useState(getImageUrl(product.image));
+  const imageUrl = getImageUrl(product.image);
   
   // Simulated Sale logic like on Raycon (red tag top left)
   const isSale = product.badge?.toLowerCase() === 'sale' || product.price < 50; 
@@ -22,12 +22,11 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
       <Link href={`/products/${product._id}`} className={styles.cardImageLink}>
         <div className={styles.imageContainer}>
           <Image
-            src={imgSrc}
+            src={imageUrl}
             alt={product.name}
             fill
             className={styles.productImg}
-            onError={() => setImgSrc('https://via.placeholder.com/600x600?text=No+Image')}
-            sizes="(max-width: 768px) 100vw, 25vw"
+            sizes="(max-width: 768px) 50vw, 25vw"
           />
           {isSale && (
             <span className={styles.saleBadge}>SALE</span>

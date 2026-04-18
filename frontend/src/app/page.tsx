@@ -1,29 +1,20 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { IProduct } from '@/types';
-import ProductCard from '@/components/ProductCard';
+import FeaturedGrid from '@/components/FeaturedGrid';
 import styles from '@/styles/Home.module.css';
 
-async function getFeaturedProducts(): Promise<IProduct[]> {
-  try {
-    const backendUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
-    const res = await fetch(`${backendUrl}/api/products?sort=rating`, { 
-      next: { revalidate: 3600 } 
-    });
-    
-    if (!res.ok) throw new Error('Failed to fetch data');
-    const data = await res.json();
-    return data.products?.slice(0, 4) || []; 
-  } catch (error) {
-    console.error('SERVER FETCH ERROR: Failed to fetch products:', error);
-    return [];
-  }
+function FeaturedSkeleton() {
+  return (
+    <div className={styles.productsGrid}>
+      {[1, 2, 3, 4].map((i) => (
+        <div key={i} className="skeleton" style={{ height: 350, transform: 'scale(1)' }} />
+      ))}
+    </div>
+  );
 }
 
 export default async function HomePage() {
-  const featuredProducts = await getFeaturedProducts();
-
   return (
     <>
       {/* Top Banner exactly like Raycon */}
@@ -70,17 +61,9 @@ export default async function HomePage() {
         <div className="container">
           <h2 className="section-title">OUR BEST SELLERS</h2>
           
-          <div className={styles.productsGrid}>
-            {featuredProducts.length > 0 ? (
-              featuredProducts.map((product) => (
-                <ProductCard key={product._id} product={product} />
-              ))
-            ) : (
-              [1, 2, 3, 4].map((i) => (
-                <div key={i} className="skeleton" style={{ height: 350, transform: 'scale(1)' }} />
-              ))
-            )}
-          </div>
+          <Suspense fallback={<FeaturedSkeleton />}>
+            <FeaturedGrid />
+          </Suspense>
         </div>
       </section>
     </>

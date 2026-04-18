@@ -30,12 +30,10 @@ export default async function ProductsPage({ searchParams }: PageProps) {
   ]);
 
   return (
-    <Suspense fallback={<LoadingSpinner size={50} text="Loading products..." />}>
-      <ProductsClient
-        initialProducts={products}
-        initialCategory={params.category || 'all'}
-        initialSort={params.sort || 'featured'}
-      />
-    </Suspense>
+    <ProductsClient
+      initialProducts={products}
+      initialCategory={params.category || 'all'}
+      initialSort={params.sort || 'featured'}
+    />
   );
 }
