@@ -23,29 +23,42 @@ export const upload = multer({
 
 // ─── Dashboard Stats ──────────────────────────────────────────────────────────
 
+let revenueCache: { value: number; ts: number } | null = null;
 export const getDashboardStats = async (_req: Request, res: Response): Promise<void> => {
   try {
-    const [totalProducts, totalUsers, totalOrders, revenueResult, recentOrders, outOfStock] =
-      await Promise.all([
-        Product.countDocuments(),
-        User.countDocuments({ role: 'user' }),
-        Order.countDocuments(),
-        Order.aggregate([
-          { $match: { status: { $ne: 'cancelled' } } },
-          { $group: { _id: null, total: { $sum: '$total' } } },
-        ]),
-        Order.find()
-          .sort({ createdAt: -1 })
-          .limit(5)
-          .populate('user', 'firstName lastName email'),
-        Product.countDocuments({ inStock: false }),
+    const [totalProducts, totalUsers, totalOrders] = await Promise.all([
+      Product.countDocuments(),
+      User.countDocuments({ role: 'user' }),
+      Order.countDocuments(),
+    ]);
+
+    // ---- revenue cache (5 s) ----
+    const now = Date.now();
+    let totalRevenue = 0;
+    if (revenueCache && now - revenueCache.ts < 5000) {
+      totalRevenue = revenueCache.value;
+    } else {
+      const agg = await Order.aggregate([
+        { $match: { status: { $ne: 'cancelled' } } },
+        { $group: { _id: null, total: { $sum: '$total' } } },
       ]);
+      totalRevenue = agg[0]?.total ?? 0;
+      revenueCache = { value: totalRevenue, ts: now };
+    }
+
+    const recentOrders = await Order.find()
+      .sort({ createdAt: -1 })
+      .limit(5)
+      .populate('user', 'firstName lastName email')
+      .lean();
+
+    const outOfStock = await Product.countDocuments({ inStock: false });
 
     res.json({
       totalProducts,
       totalUsers,
       totalOrders,
-      totalRevenue: revenueResult[0]?.total ?? 0,
+      totalRevenue,
       outOfStock,
       recentOrders,
     });
@@ -58,7 +71,7 @@ export const getDashboardStats = async (_req: Request, res: Response): Promise<v
 
 export const adminGetProducts = async (_req: Request, res: Response): Promise<void> => {
   try {
-    const products = await Product.find().sort({ createdAt: -1 });
+    const products = await Product.find().sort({ createdAt: -1 }).lean();
     res.json({ products });
   } catch {
     res.status(500).json({ message: 'Failed to fetch products.' });
@@ -135,7 +148,8 @@ export const adminGetOrders = async (req: Request, res: Response): Promise<void>
         .sort({ createdAt: -1 })
         .skip(skip)
         .limit(Number(limit))
-        .populate('user', 'firstName lastName email'),
+        .populate('user', 'firstName lastName email')
+        .lean(),
       Order.countDocuments(filter),
     ]);
 

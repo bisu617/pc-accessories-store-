@@ -59,8 +59,20 @@ export default function AdminProductsPage() {
 
   const handleDelete = async (id: string, name: string) => {
     if (!confirm(`Delete "${name}"? This cannot be undone.`)) return;
-    await adminAPI.deleteProduct(id);
-    setProducts((prev) => prev.filter((p) => p._id !== id));
+    try {
+      const res = await adminAPI.deleteProduct(id);
+      if (!res.ok) {
+        const err = await res.json();
+        alert(err.message || 'Delete failed');
+        return;
+      }
+      // Optimistically remove from UI
+      setProducts(prev => prev.filter(p => p._id !== id));
+      // Refresh list to guarantee consistency (optional)
+      load();
+    } catch (e: any) {
+      alert(e.message || 'Delete failed');
+    }
   };
 
   const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {

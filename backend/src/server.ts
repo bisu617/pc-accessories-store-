@@ -75,6 +75,19 @@ app.use((_req: Request, res: Response) => {
   res.status(404).json({ message: 'Route not found' });
 });
 
+// Self-ping to prevent Render free-tier cold starts (pings every 14 minutes)
+const keepAlive = () => {
+  const selfUrl = process.env.RENDER_EXTERNAL_URL || `http://localhost:${PORT}`;
+  setInterval(async () => {
+    try {
+      await fetch(`${selfUrl}/api/health`);
+      console.log('💓 Keep-alive ping sent');
+    } catch {
+      // Silent fail — server may be starting up
+    }
+  }, 14 * 60 * 1000); // 14 minutes
+};
+
 // Start server
 const startServer = async () => {
   try {
@@ -84,6 +97,11 @@ const startServer = async () => {
       console.log(`📡 Running on: http://localhost:${PORT}`);
       console.log(`🖼️  Images at: http://localhost:${PORT}/images/`);
       console.log(`💚 Health check: http://localhost:${PORT}/api/health\n`);
+      // Start keep-alive only in production
+      if (process.env.NODE_ENV === 'production') {
+        keepAlive();
+        console.log('💓 Keep-alive pinger started (every 14 min)');
+      }
     });
   } catch (error) {
     console.error('Failed to start server:', error);

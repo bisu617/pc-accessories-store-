@@ -104,10 +104,10 @@ export const adminAPI = {
   getStats: () => api.get('/admin/stats'),
 
   // Products
-  getProducts: () => api.get('/admin/products'),
+  getProducts: () => api.get('/admin/products', { headers: { 'Cache-Control': 'no-store' } }),
   createProduct: (data: object) => api.post('/admin/products', data),
   updateProduct: (id: string, data: object) => api.put(`/admin/products/${id}`, data),
-  deleteProduct: (id: string) => api.delete(`/admin/products/${id}`),
+  deleteProduct: (id: string) => api.delete(`/admin/products/${id}`, { headers: { 'Cache-Control': 'no-store' } }),
 
   // Orders
   getOrders: (params?: { status?: string; page?: number }) =>
